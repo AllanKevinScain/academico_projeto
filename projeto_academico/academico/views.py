@@ -11,14 +11,14 @@ def index(request):
 def alunos(request):
     alunos = Aluno.objects.all()
     dados = {'alunos': alunos}
-    return render(request, 'academico/lista_alunos.html', dados)
+    return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 
 # Nem ta sendo usado ainda
 def cursos(request):
     cursos = Curso.objects.all()
     dados = {'cursos': cursos}
-    return render(request, 'academico/lista_alunos.html', dados)
+    return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 
 def cadastrar_aluno(request):
@@ -30,7 +30,7 @@ def cadastrar_aluno(request):
     else:
         form = AlunoForm()
         dados = {'form': form}
-    return render(request, 'academico/cadastrar_aluno.html', dados)
+    return render(request, 'academico/aluno/cadastrar_aluno.html', dados)
 
 
 def cadastrar_curso(request):
@@ -48,7 +48,7 @@ def cadastrar_curso(request):
     else:
         form = CursoForm()
         dados = {'form': form}
-    return render(request, 'academico/cadastrar_curso.html', dados)
+    return render(request, 'academico/aluno/cadastrar_curso.html', dados)
 
 
 def editar_aluno(request, id):
@@ -66,4 +66,4 @@ def editar_aluno(request, id):
     form = AlunoForm(instance=aluno)
     dados = {'form': form, 'aluno': aluno}
 
-    return render(request, 'academico/editar_aluno.html', dados)
+    return render(request, 'academico/aluno/editar_aluno.html', dados)
