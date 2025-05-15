@@ -49,3 +49,21 @@ def cadastrar_curso(request):
         form = CursoForm()
         dados = {'form': form}
     return render(request, 'academico/cadastrar_curso.html', dados)
+
+
+def editar_aluno(request, id):
+    try:
+        aluno = Aluno.objects.get(id=id)
+    except:
+        return redirect('alunos')
+
+    if request.method == 'POST':
+        form = AlunoForm(request.POST, instance=aluno)
+        if form.is_valid():
+            form.save()
+            return redirect('alunos')
+
+    form = AlunoForm(instance=aluno)
+    dados = {'form': form, 'aluno': aluno}
+
+    return render(request, 'academico/editar_aluno.html', dados)

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,8 @@
             <th>Gênero</th>
             <th>Escolaridade</th>
             <th>Estado Civil</th>
+            <th>Nascimento</th>
+            <th></th>
         </tr>
         {% for aluno in alunos %}
         <tr>
@@ -24,7 +26,8 @@
             <td>{{ aluno.get_genero_display }}</td>
             <td>{{ aluno.get_escolaridade_display }}</td>
             <td>{{ aluno.get_estado_civil_display }}</td>
-
+            <td>{{ aluno.data_nascimento|date:"d/m/Y" }}</td>
+            <td><a href="{% url 'editar_aluno' aluno.id %}">Editar Aluno</a></td>
         </tr>
         {% endfor %}
     </table>

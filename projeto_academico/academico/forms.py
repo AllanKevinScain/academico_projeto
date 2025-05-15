@@ -10,7 +10,9 @@ class CursoForm(forms.ModelForm):
 
 class AlunoForm(forms.ModelForm):
     data_nascimento = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'}))
+        widget=forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
+        input_formats=['%Y-%m-%d']
+    )
 
     class Meta:
         model = Aluno
