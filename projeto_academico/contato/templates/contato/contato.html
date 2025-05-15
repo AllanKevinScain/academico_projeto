@@ -9,7 +9,10 @@
 
 <body>
     <h1>Bem-vindo à página de contato</h1>
-    <p>Esta é a página de contato do site.</p>
+
+    {% if mensagem_enviada %}
+    {{ mensagem }}
+    {% endif %}
 
     <form method="post">
         {% csrf_token %}
