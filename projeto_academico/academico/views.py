@@ -9,8 +9,14 @@ def index(request):
 
 
 def alunos(request):
-    alunos = Aluno.objects.all()
-    dados = {'alunos': alunos}
+    alunos = Aluno.objects.filter(ativo=True)
+    dados = {'alunos': alunos,  'ativos': True}
+    return render(request, 'academico/aluno/lista_alunos.html', dados)
+
+
+def alunos_inativos(request):
+    alunos = Aluno.objects.filter(ativo=False)
+    dados = {'alunos': alunos, 'ativos': False}
     return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 
@@ -42,6 +48,36 @@ def editar_aluno(request, id):
     dados = {'form': form, 'aluno': aluno}
 
     return render(request, 'academico/aluno/editar_aluno.html', dados)
+
+
+def excluir_aluno(request, id):
+    try:
+        aluno = Aluno.objects.get(id=id)
+        aluno.ativo = False
+        aluno.save()
+        messages.success(request, "Aluno excluído com sucesso.")
+    except Aluno.DoesNotExist:
+        messages.error(request, "Aluno não encontrado.")
+
+    return redirect('alunos')
+
+
+def ativar_aluno(request, id):
+    try:
+        aluno = Aluno.objects.get(id=id)
+    except Aluno.DoesNotExist:
+        messages.error(request, "Aluno não encontrado.")
+        return redirect('alunos_inativos')
+
+    if aluno.ativo == False:
+        aluno.ativo = True
+        aluno.save()
+        messages.success(request, "Aluno reativado com sucesso.")
+
+    else:
+        messages.info(request, "O aluno já está ativo.")
+
+    return redirect('alunos_inativos')
 
 
 def cursos(request):

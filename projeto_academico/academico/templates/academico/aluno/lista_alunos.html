@@ -9,7 +9,24 @@
 
 <body>
     <p><a href="{% url 'index' %}"> Voltar</a></p>
+
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if ativos %}
     <h1>Lista de Alunos</h1>
+    {% else %}
+    <h1>Lista de Alunos Inativos</h1>
+    {% endif %}
+
+
     <table border="1" cellpadding="5" cellspacing="3">
         <tr>
             <th>Nome</th>
@@ -18,20 +35,38 @@
             <th>Escolaridade</th>
             <th>Estado Civil</th>
             <th>Nascimento</th>
-            <th></th>
+            {% if ativos %}
+            <th>-</th>
+            <th>X</th>
+            {% else %}
+            <td></td>
+            {% endif %}
         </tr>
         {% for aluno in alunos %}
         <tr>
-            <td>{{ aluno.nome }}</td>
-            <td>{{ aluno.curso }}</td>
+            <td>{{ aluno.nome|title }}</td>
+            <td>{{ aluno.curso|title }}</td>
             <td>{{ aluno.get_genero_display }}</td>
             <td>{{ aluno.get_escolaridade_display }}</td>
             <td>{{ aluno.get_estado_civil_display }}</td>
             <td>{{ aluno.data_nascimento|date:"d/m/Y" }}</td>
+            {% if ativos %}
             <td><a href="{% url 'editar_aluno' aluno.id %}">Editar Aluno</a></td>
+            <td><a href="{% url 'excluir_aluno' aluno.id %}">ExcluirAluno </a></td>
+            {% else %}
+            <td><a href="{% url 'ativar_aluno' aluno.id %}">Ativar ALuno</a></td>
+            {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </table>
+
+    {% if ativos %}
+    <p><a href="{% url 'alunos_inativos' %}">Mostrar Inativos</a></p>
+    {% else %}
+    <p><a href="{% url 'alunos' %}">Mostrar Ativos</a></p>
+    {% endif %}
+
 </body>
 
 </html>
