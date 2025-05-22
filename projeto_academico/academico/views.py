@@ -54,6 +54,9 @@ def cadastrar_curso(request):
     if request.method == 'POST':
         form = CursoForm(request.POST)
         if form.is_valid():
+            nome = form.cleaned_data['nome'].title()
+            form.instance.nome = nome
+
             form.save()
             return redirect('index')
     else:
@@ -78,3 +81,17 @@ def editar_curso(request, id):
     dados = {'form': form, 'curso': curso}
 
     return render(request, 'academico/curso/editar_curso.html', dados)
+
+
+def excluir_curso(request, id):
+    try:
+        curso = Curso.objects.get(id=id)
+        curso.delete()
+        messages.success(request, "Curso excluído com sucesso.")
+    except RestrictedError:
+        messages.error(
+            request, "Não é possível deletar o curso pois há alunos vinculados.")
+    except Curso.DoesNotExist:
+        messages.error(request, "Curso não encontrado.")
+
+    return redirect('cursos')

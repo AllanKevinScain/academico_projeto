@@ -9,6 +9,17 @@
 
 <body>
     <p><a href="{% url 'index' %}"> Voltar</a></p>
+
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <h1>Lista de Cursos</h1>
 
     <table border="1" cellpadding="5" cellspacing="3">
@@ -17,8 +28,10 @@
         </tr>
         {% for curso in cursos %}
         <tr>
-            <td>{{ curso.nome }}</td>
+            <td>{{ curso.nome|title }}</td>
             <td><a href="{% url 'editar_curso' curso.id %}">Editar curso</a></td>
+            <td><a href="{% url 'excluir_curso' curso.id %}">Excluir curso</a></td>
+
         </tr>
         {% endfor %}
     </table>
