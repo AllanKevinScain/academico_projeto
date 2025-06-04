@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import index, alunos, cursos
-from .views import cadastrar_aluno, cadastrar_curso, excluir_aluno, alunos_inativos, ativar_aluno
+from .views import cadastrar_aluno, cadastrar_curso, excluir_aluno, alunos_inativos, ativar_aluno, ordenar_alunos
 from .views import editar_aluno, editar_curso, excluir_curso
 
 urlpatterns = [
@@ -11,6 +11,7 @@ urlpatterns = [
     path('editar_aluno/<int:id>/', editar_aluno, name='editar_aluno'),
     path('excluir_aluno/<int:id>/', excluir_aluno, name='excluir_aluno'),
     path('alunos/ativar/<int:id>/', ativar_aluno, name='ativar_aluno'),
+    path('alunos/ordenar/<campo>/', ordenar_alunos, name='ordenar_alunos'),
 
     path('cursos/', cursos, name='cursos'),
     path('cadastrar_curso/', cadastrar_curso, name='cadastrar_curso'),

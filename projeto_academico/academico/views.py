@@ -80,6 +80,13 @@ def ativar_aluno(request, id):
     return redirect('alunos_inativos')
 
 
+def ordenar_alunos(request, campo):
+    alunos = Aluno.objects.filter(ativo=True)
+    alunos = alunos.order_by(campo)
+    dados = {'alunos': alunos, 'ativos': True}
+    return render(request, 'academico/aluno/lista_alunos.html', dados)
+
+
 def cursos(request):
     cursos = Curso.objects.all()
     dados = {'cursos': cursos}
