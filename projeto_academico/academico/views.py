@@ -1,7 +1,17 @@
 from django.shortcuts import render
 from .models import Aluno, Curso
 from .forms import CursoForm, AlunoForm
+from django.contrib import messages
 from django.shortcuts import redirect
+
+ORDENACAO_ALUNOS_LOOKUP = {
+    'curso': 'curso__nome',
+    'nome': 'nome',
+    'genero': 'genero',
+    'escolaridade': 'escolaridade',
+    'estado_civil': 'estado_civil',
+    'data_nascimento': 'data_nascimento'
+}
 
 
 def index(request):
@@ -81,9 +91,18 @@ def ativar_aluno(request, id):
 
 
 def ordenar_alunos(request, parametro):
+    campo_ordenacao = ORDENACAO_ALUNOS_LOOKUP.get(parametro)
     alunos = Aluno.objects.filter(ativo=True)
-    alunos = alunos.order_by(parametro)
+    alunos = alunos.order_by(campo_ordenacao)
     dados = {'alunos': alunos, 'ativos': True}
+    return render(request, 'academico/aluno/lista_alunos.html', dados)
+
+
+def ordenar_alunos_inativos(request, parametro):
+    campo_ordenacao = ORDENACAO_ALUNOS_LOOKUP.get(parametro)
+    alunos = Aluno.objects.filter(ativo=False)
+    alunos = alunos.order_by(campo_ordenacao)
+    dados = {'alunos': alunos, 'ativos': False}
     return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 

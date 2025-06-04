@@ -29,19 +29,25 @@
 
     <table border="1" cellpadding="5" cellspacing="3">
         <tr>
-            <th><a href="{% url 'ordenar_alunos' 'nome' %}">Nome</a></th>
-            <th>Curso</th>
-            <th>Gênero</th>
-            <th>Escolaridade</th>
-            <th>Estado Civil</th>
-            <th>Nascimento</th>
             {% if ativos %}
-            <th>-</th>
-            <th>X</th>
+            <th><a href="{% url 'ordenar_alunos' 'nome' %}">Nome</a></th>
+            <th><a href="{% url 'ordenar_alunos' 'curso' %}">Curso</a></th>
+            <th><a href="{% url 'ordenar_alunos' 'genero' %}">Gênero</a></th>
+            <th><a href="{% url 'ordenar_alunos' 'escolaridade' %}">Escolaridade</a></th>
+            <th><a href="{% url 'ordenar_alunos' 'estado_civil' %}">Estado Civil</a></th>
+            <th><a href="{% url 'ordenar_alunos' 'data_nascimento' %}">Nascimento</a></th>
+            <th>Ações</th>
             {% else %}
-            <td></td>
+            <th><a href="{% url 'ordenar_alunos_inativos' 'nome' %}">Nome</a></th>
+            <th><a href="{% url 'ordenar_alunos_inativos' 'curso' %}">Curso</a></th>
+            <th><a href="{% url 'ordenar_alunos_inativos' 'genero' %}">Gênero</a></th>
+            <th><a href="{% url 'ordenar_alunos_inativos' 'escolaridade' %}">Escolaridade</a></th>
+            <th><a href="{% url 'ordenar_alunos_inativos' 'estado_civil' %}">Estado Civil</a></th>
+            <th><a href="{% url 'ordenar_alunos_inativos' 'data_nascimento' %}">Nascimento</a></th>
+            <th>Ativar</th>
             {% endif %}
         </tr>
+
         {% for aluno in alunos %}
         <tr>
             <td>{{ aluno.nome }}</td>
