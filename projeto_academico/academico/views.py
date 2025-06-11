@@ -19,8 +19,12 @@ def index(request):
 
 
 def alunos(request):
-    alunos = Aluno.objects.filter(ativo=True)
-    dados = {'alunos': alunos,  'ativos': True}
+    query = request.GET.get('busca', '')
+    if query:
+        alunos = Aluno.objects.filter(ativo=True, nome__icontains=query)
+    else:
+        alunos = Aluno.objects.filter(ativo=True)
+    dados = {'alunos': alunos, 'ativos': True, 'query': query}
     return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 
@@ -92,17 +96,27 @@ def ativar_aluno(request, id):
 
 def ordenar_alunos(request, parametro):
     campo_ordenacao = ORDENACAO_ALUNOS_LOOKUP.get(parametro)
+    busca = request.GET.get('busca', '')
     alunos = Aluno.objects.filter(ativo=True)
+
+    if busca:
+        alunos = alunos.filter(nome__icontains=busca)
+
     alunos = alunos.order_by(campo_ordenacao)
-    dados = {'alunos': alunos, 'ativos': True}
+    dados = {'alunos': alunos, 'ativos': True, 'query': busca}
     return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 
-def ordenar_alunos_inativos(request, parametro):
-    campo_ordenacao = ORDENACAO_ALUNOS_LOOKUP.get(parametro)
+def ordenar_alunos_inativos(request, paramtero):
+    campo_ordenacao = ORDENACAO_ALUNOS_LOOKUP.get(paramtero)
+    busca = request.GET.get('busca', '')
     alunos = Aluno.objects.filter(ativo=False)
+
+    if busca:
+        alunos = Aluno.objects.filter(nome__icontains=busca)
+
     alunos = alunos.order_by(campo_ordenacao)
-    dados = {'alunos': alunos, 'ativos': False}
+    dados = {'alunos': alunos, 'ativos': False, 'query': busca}
     return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 
