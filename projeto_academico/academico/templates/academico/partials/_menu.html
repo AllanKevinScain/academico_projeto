@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Acadêmico</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Aluno
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'cadastrar_aluno'%}">Cadastrar Aluno</a></li>
+                        <li><a class="dropdown-item" href="{% url 'alunos' %}">Alunos Ativos</a></li>
+                        <li><a class="dropdown-item" href="{% url 'alunos_inativos' %}">Alunos Inativos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Curso
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'cadastrar_curso' %}">Cadastrar Curso</a></li>
+                        <li><a class="dropdown-item" href="{% url 'cursos' %}">Lista de Curso</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contato' %}">Contato</a>
+                </li>
+            </ul>
+        </div>
+
+        <form class="d-flex gap-3">
+            <input type="text" name="busca" placeholder="Buscar por nome" value="{{ query|default:'' }}"
+                class="rounded-2 form-control">
+            <button type="submit" class="btn btn-light">Buscar</button>
+        </form>
+    </div>
+</nav>

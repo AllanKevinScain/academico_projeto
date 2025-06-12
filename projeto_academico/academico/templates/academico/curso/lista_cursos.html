@@ -1,40 +1,21 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'academico/base.html' %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lista de cursos</title>
-</head>
+{% block content %}
+<h1>Lista de Cursos</h1>
 
-<body>
-  <p><a href="{% url 'index' %}"> Voltar</a></p>
+<table border="1" cellpadding="5" cellspacing="3">
+  <tr>
+    <th>Nome</th>
+    <th>-</th>
+    <th>X</th>
 
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
-  <h1>Lista de Cursos</h1>
-
-  <table border="1" cellpadding="5" cellspacing="3">
-    <tr>
-      <th>Nome</th>
-      <th>-</th>
-      <th>X</th>
-
-    </tr>
-    {% for curso in cursos %}
-    <tr>
-      <td>{{ curso.nome }}</td>
-      <td><a href="{% url 'editar_curso' curso.id %}">Editar curso</a></td>
-      <td><a href="{% url 'excluir_curso' curso.id %}">Excluir curso</a></td>
-    </tr>
-    {% endfor %}
-  </table>
-</body>
-
-</html>
+  </tr>
+  {% for curso in cursos %}
+  <tr>
+    <td>{{ curso.nome }}</td>
+    <td><a href="{% url 'editar_curso' curso.id %}">Editar curso</a></td>
+    <td><a href="{% url 'excluir_curso' curso.id %}">Excluir curso</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

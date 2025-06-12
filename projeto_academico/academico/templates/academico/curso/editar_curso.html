@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'academico/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar curso</title>
-</head>
+{% load crispy_forms_tags %}
 
-<body>
-    <p><a href="{% url 'cursos' %}"> Voltar</a></p>
+{% block content %}
+<div class="container-sm mt-5">
     <h1>Edição de curso</h1>
+</div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+<form method="post" class="container-sm">
+    {% csrf_token %}
+    {{ form|crispy }}
 
-        <button type="submit">Salvar Alterações</button>
-    </form>
-
-</body>
-
-</html>
+    <button type="submit">Salvar Alterações</button>
+</form>
+{% endblock %}

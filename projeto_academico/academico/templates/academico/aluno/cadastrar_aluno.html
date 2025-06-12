@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'academico/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Aluno</title>
-</head>
+{% load crispy_forms_tags %}
 
-<body>
-    <p><a href="{% url 'alunos' %}"> Voltar</a></p>
+{% block content %}
+<div class="container-sm mt-5">
     <h1>Cadastro de Aluno</h1>
+</div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+<form method="post" class="container-sm">
+    {% csrf_token %}
+    {{ form|crispy }}
 
-        <button type="submit">Cadastrar Aluno</button>
-    </form>
-
-</body>
-
-</html>
+    <button type="submit">Cadastrar Aluno</button>
+</form>
+{% endblock %}
