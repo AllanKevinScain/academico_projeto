@@ -3,6 +3,7 @@ from .models import Aluno, Curso
 from .forms import CursoForm, AlunoForm
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 ORDENACAO_ALUNOS_LOOKUP = {
     'curso': 'curso__nome',
@@ -14,10 +15,12 @@ ORDENACAO_ALUNOS_LOOKUP = {
 }
 
 
+@login_required
 def index(request):
     return render(request, 'academico/index.html')
 
 
+@login_required
 def alunos(request):
     query = request.GET.get('busca', '')
     if query:
@@ -28,12 +31,14 @@ def alunos(request):
     return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 
+@login_required
 def alunos_inativos(request):
     alunos = Aluno.objects.filter(ativo=False)
     dados = {'alunos': alunos, 'ativos': False}
     return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 
+@login_required
 def cadastrar_aluno(request):
     if request.method == 'POST':
         form = AlunoForm(request.POST)
@@ -48,6 +53,7 @@ def cadastrar_aluno(request):
     return render(request, 'academico/aluno/cadastrar_aluno.html', dados)
 
 
+@login_required
 def editar_aluno(request, id):
     # aluno vai receber os dados do aluno selecionado.
     try:
@@ -73,6 +79,7 @@ def editar_aluno(request, id):
     return render(request, 'academico/aluno/editar_aluno.html', dados)
 
 
+@login_required
 def excluir_aluno(request, id):
     try:
         aluno = Aluno.objects.get(id=id)
@@ -85,6 +92,7 @@ def excluir_aluno(request, id):
     return redirect('alunos')
 
 
+@login_required
 def ativar_aluno(request, id):
     try:
         aluno = Aluno.objects.get(id=id)
@@ -103,6 +111,7 @@ def ativar_aluno(request, id):
     return redirect('alunos_inativos')
 
 
+@login_required
 def ordenar_alunos(request, parametro):
     campo_ordenacao = ORDENACAO_ALUNOS_LOOKUP.get(parametro)
     busca = request.GET.get('busca', '')
@@ -116,6 +125,7 @@ def ordenar_alunos(request, parametro):
     return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 
+@login_required
 def ordenar_alunos_inativos(request, paramtero):
     campo_ordenacao = ORDENACAO_ALUNOS_LOOKUP.get(paramtero)
     busca = request.GET.get('busca', '')
@@ -129,12 +139,14 @@ def ordenar_alunos_inativos(request, paramtero):
     return render(request, 'academico/aluno/lista_alunos.html', dados)
 
 
+@login_required
 def cursos(request):
     cursos = Curso.objects.all()
     dados = {'cursos': cursos}
     return render(request, 'academico/curso/lista_cursos.html', dados)
 
 
+@login_required
 def cadastrar_curso(request):
     if request.method == 'POST':
         form = CursoForm(request.POST)
@@ -156,6 +168,7 @@ def cadastrar_curso(request):
     return render(request, 'academico/curso/cadastrar_curso.html', dados)
 
 
+@login_required
 def editar_curso(request, id):
     try:
         curso = Curso.objects.get(id=id)
@@ -174,6 +187,7 @@ def editar_curso(request, id):
     return render(request, 'academico/curso/editar_curso.html', dados)
 
 
+@login_required
 def excluir_curso(request, id):
     try:
         curso = Curso.objects.get(id=id)

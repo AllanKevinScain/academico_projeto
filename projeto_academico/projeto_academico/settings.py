@@ -34,10 +34,13 @@ INSTALLED_APPS = [
     # libs
     'crispy_bootstrap5',
     'crispy_forms',
+    'stdimage',
 
     # apss
     'academico.apps.AcademicoConfig',
     'contato.apps.ContatoConfig',
+    'disciplinas.apps.DisciplinasConfig',
+    'login.apps.LoginConfig',
 
     # default apps
     'django.contrib.admin',
@@ -144,3 +147,6 @@ EMAIL_HOST_PASSWORD = 'vrfs qfbd wota mlgy'
 # configuração bootstrap
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# URL de login
+LOGIN_URL = 'login'

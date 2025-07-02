@@ -3,10 +3,11 @@ from django.shortcuts import render
 from . import forms
 from django.core.mail import send_mail
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def contato(request):
-
     if request.method == 'POST':
         form = forms.ContatoForm(request.POST)
         if form.is_valid():
