@@ -1,60 +1,70 @@
 {% extends 'academico/base.html' %}
+
 {% block content %}
-{% if ativos %}
-<div class="container-sm mt-5">
-    <h1 class="h1">Lista de Alunos</h1>
-</div>
-{% else %}
-<div class="container-sm mt-5">
-    <h1 class="h1">Lista de Alunos Inativos</h1>
-</div>
-{% endif %}
 
-<div class="container-sm mt-2">
-    <div class="bg-dark rounded-3 overflow-hidden">
-        <table cellpadding="5" cellspacing="1" class="table table-dark table-striped mb-0">
-            <tr>
+<!-- Cont. de H1-->
+<div class="container my-3">
+    {% if ativos %}
+    <h1 class="text-center bg-secondary text-white py-2 shadow rounded">Lista de Alunos</h1>
+    {% else %}
+    <h1 class="text-center bg-secondary text-white py-2 shadow rounded">Lista de Alunos Inativos</h1>
+    {% endif %}
+</div>
+<!-- Cont. de H1-->
+
+{% include 'academico/partials/_busca.html' %}
+
+<!-- Cont. de Table-->
+<div class="container">
+    <table class="table table-striped table-hover rounded shadow">
+        <tr class="table-dark">
+            {% if ativos %}
+            <th><a class="text-white" href="{% url 'ordenar_alunos' 'nome' %}?busca={{ query }}">Nome</a></th>
+            <th><a class="text-white" href="{% url 'ordenar_alunos' 'curso' %}?busca={{ query }}">Curso</a></th>
+            <th><a class="text-white" href="{% url 'ordenar_alunos' 'genero' %}?busca={{ query }}">Gênero</a></th>
+            <th><a class="text-white"
+                    href="{% url 'ordenar_alunos' 'escolaridade' %}?busca={{ query }}">Escolaridade</a></th>
+            <th><a class="text-white" href="{% url 'ordenar_alunos' 'estado_civil' %}?busca={{ query }}">Estado
+                    Civil</a></th>
+            <th><a class="text-white"
+                    href="{% url 'ordenar_alunos' 'data_nascimento' %}?busca={{ query }}">Nascimento</a></th>
+            <th>Ações</th>
+            {% else %}
+            <th><a class="text-white" href="{% url 'ordenar_alunos_inativos' 'nome' %}?busca={{ query }}">Nome</a></th>
+            <th><a class="text-white" href="{% url 'ordenar_alunos_inativos' 'curso' %}?busca={{ query }}">Curso</a>
+            </th>
+            <th><a class="text-white" href="{% url 'ordenar_alunos_inativos' 'genero' %}?busca={{ query }}">Gênero</a>
+            </th>
+            <th><a class="text-white"
+                    href="{% url 'ordenar_alunos_inativos' 'escolaridade' %}?busca={{ query }}">Escolaridade</a></th>
+            <th><a class="text-white" href="{% url 'ordenar_alunos_inativos' 'estado_civil' %}?busca={{ query }}">Estado
+                    Civil</a></th>
+            <th><a class="text-white"
+                    href="{% url 'ordenar_alunos_inativos' 'data_nascimento' %}?busca={{ query }}">Nascimento</a></th>
+            <th>Ativar</th>
+            {% endif %}
+        </tr>
+
+        {% for aluno in alunos %}
+        <tr class="table-info">
+            <td>{{ aluno.nome }}</td>
+            <td class="table-success">{{ aluno.curso }}</td>
+            <td class="table-warning">{{ aluno.get_genero_display }}</td>
+            <td>{{ aluno.get_escolaridade_display }}</td>
+            <td>{{ aluno.get_estado_civil_display }}</td>
+            <td>{{ aluno.data_nascimento|date:"d/m/Y" }}</td>
+            <td>
                 {% if ativos %}
-                <th><a href="{% url 'ordenar_alunos' 'nome' %}?busca={{ query }}">Nome</a></th>
-                <th><a href="{% url 'ordenar_alunos' 'curso' %}?busca={{ query }}">Curso</a></th>
-                <th><a href="{% url 'ordenar_alunos' 'genero' %}?busca={{ query }}">Gênero</a></th>
-                <th><a href="{% url 'ordenar_alunos' 'escolaridade' %}?busca={{ query }}">Escolaridade</a></th>
-                <th><a href="{% url 'ordenar_alunos' 'estado_civil' %}?busca={{ query }}">Estado Civil</a></th>
-                <th><a href="{% url 'ordenar_alunos' 'data_nascimento' %}?busca={{ query }}">Nascimento</a></th>
-                <th>Ações</th>
+                <a href="{% url 'editar_aluno' aluno.id %}" class="btn btn-info btn-sm">Editar</a>
+                <a href="{% url 'excluir_aluno' aluno.id %}" class="btn btn-danger btn-sm">Excluir</a>
                 {% else %}
-                <th><a href="{% url 'ordenar_alunos_inativos' 'nome' %}?busca={{ query }}">Nome</a></th>
-                <th><a href="{% url 'ordenar_alunos_inativos' 'curso' %}?busca={{ query }}">Curso</a></th>
-                <th><a href="{% url 'ordenar_alunos_inativos' 'genero' %}?busca={{ query }}">Gênero</a></th>
-                <th><a href="{% url 'ordenar_alunos_inativos' 'escolaridade' %}?busca={{ query }}">Escolaridade</a>
-                </th>
-                <th><a href="{% url 'ordenar_alunos_inativos' 'estado_civil' %}?busca={{ query }}">Estado Civil</a>
-                </th>
-                <th><a href="{% url 'ordenar_alunos_inativos' 'data_nascimento' %}?busca={{ query }}">Nascimento</a>
-                </th>
-                <th>Ativar</th>
+                <a href="{% url 'ativar_aluno' aluno.id %}" class="btn btn-success btn-sm">Ativar</a>
                 {% endif %}
-            </tr>
+            </td>
 
-            {% for aluno in alunos %}
-            <tr>
-                <td>{{ aluno.nome }}</td>
-                <td>{{ aluno.curso }}</td>
-                <td>{{ aluno.get_genero_display }}</td>
-                <td>{{ aluno.get_escolaridade_display }}</td>
-                <td>{{ aluno.get_estado_civil_display }}</td>
-                <td>{{ aluno.data_nascimento|date:"d/m/Y" }}</td>
-                <td>
-                    {% if ativos %}
-                    <a href="{% url 'editar_aluno' aluno.id %}">Editar</a>
-                    <a href="{% url 'excluir_aluno' aluno.id %}">Excluir</a>
-                    {% else %}
-                    <a href="{% url 'ativar_aluno' aluno.id %}">Ativar</a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
+<!-- Cont. de Table-->
 {% endblock %}

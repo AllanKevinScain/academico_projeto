@@ -42,11 +42,14 @@ def cadastrar_aluno(request):
             return redirect('alunos')
     else:
         form = AlunoForm()
-        dados = {'form': form}
+        dados = {
+            'form': form,
+        }
     return render(request, 'academico/aluno/cadastrar_aluno.html', dados)
 
 
 def editar_aluno(request, id):
+    # aluno vai receber os dados do aluno selecionado.
     try:
         aluno = Aluno.objects.get(id=id)
     except:
@@ -58,8 +61,14 @@ def editar_aluno(request, id):
             form.save()
             return redirect('alunos')
 
+    # form vai receber um formulário com os dados do aluno selecionado.
     form = AlunoForm(instance=aluno)
-    dados = {'form': form, 'aluno': aluno}
+
+    # Montamos o dicionário com os dados para ser passado para o template.
+    dados = {
+        'form': form,
+        'aluno': aluno,
+    }
 
     return render(request, 'academico/aluno/editar_aluno.html', dados)
 
@@ -130,14 +139,20 @@ def cadastrar_curso(request):
     if request.method == 'POST':
         form = CursoForm(request.POST)
         if form.is_valid():
-            nome = form.cleaned_data['nome'].title()
-            form.instance.nome = nome
 
-            form.save()
-            return redirect('index')
+            # is_valid() Vai validar os dados, o Tokken CSRF, e criar um
+            # dicionário com os dados chamado cleaned_data
+            # Aqui estamos pegando o nome do curso
+            curso = form.cleaned_data['nome']
+            print(curso)
+            # Não vamos salvar no banco, queremos apenas testar
+            form.save(commit=False)
+            return redirect('alunos')  # Redireciona para a lista de alunos
     else:
         form = CursoForm()
-        dados = {'form': form}
+        dados = {
+            'form': form,
+        }
     return render(request, 'academico/curso/cadastrar_curso.html', dados)
 
 

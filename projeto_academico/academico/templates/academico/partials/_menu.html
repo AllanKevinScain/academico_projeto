@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Acadêmico</a>
+        <a class="navbar-brand" href="#">ACADÊMICO</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@
                         Aluno
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'cadastrar_aluno'%}">Cadastrar Aluno</a></li>
+                        <li><a class="dropdown-item" href="{% url 'cadastrar_aluno' %}">Cadastrar Aluno</a></li>
                         <li><a class="dropdown-item" href="{% url 'alunos' %}">Alunos Ativos</a></li>
                         <li><a class="dropdown-item" href="{% url 'alunos_inativos' %}">Alunos Inativos</a></li>
                     </ul>
@@ -36,11 +36,5 @@
                 </li>
             </ul>
         </div>
-
-        <form class="d-flex gap-3">
-            <input type="text" name="busca" placeholder="Buscar por nome" value="{{ query|default:'' }}"
-                class="rounded-2 form-control">
-            <button type="submit" class="btn btn-light">Buscar</button>
-        </form>
     </div>
 </nav>

@@ -1,9 +1,12 @@
+
 from django.shortcuts import render
 from . import forms
 from django.core.mail import send_mail
+from django.contrib import messages
 
 
 def contato(request):
+
     if request.method == 'POST':
         form = forms.ContatoForm(request.POST)
         if form.is_valid():
@@ -17,19 +20,19 @@ def contato(request):
             send_mail(
                 assunto,
                 corpo_email,
-                email,
-                ['meuemail44allan@gmail.com'],
+                email,  # remetente
+                ['meuemail44allan@gmail.com'],  # destinatário
+                messages.success(request, "Email enviado com Sucesso.")
             )
 
             form = forms.ContatoForm()
             dados = {
                 'form': form,
-                'mensagem_enviada': True,
-                'mensagem': 'Mensagem enviada com sucesso!',
             }
-
     else:
         form = forms.ContatoForm()
-        dados = {'form': form}
+        dados = {
+            'form': form,
+        }
 
     return render(request, 'contato/contato.html', dados)

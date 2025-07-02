@@ -31,10 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # libs
     'crispy_bootstrap5',
     'crispy_forms',
+
+    # apss
     'academico.apps.AcademicoConfig',
     'contato.apps.ContatoConfig',
+
+    # default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,6 +138,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'meuemail44allan@gmail.com'
 EMAIL_HOST_PASSWORD = 'vrfs qfbd wota mlgy'
+
+# Acesse: https://myaccount.google.com/apppasswords
 
 # configuração bootstrap
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

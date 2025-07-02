@@ -1,16 +1,24 @@
 {% extends 'academico/base.html' %}
 
-{% load crispy_forms_tags %}
-
 {% block content %}
-<div class="container-sm mt-5">
-    <h1>Edição de curso</h1>
+<div class="container my-3">
+    <div class="row">
+        <div class="col-8 mx-auto">
+            <h1 class="bg-secondary shadow rounded py-2 text-center text-white">Edição de Curso</h1>
+        </div>
+    </div>
 </div>
 
-<form method="post" class="container-sm">
-    {% csrf_token %}
-    {{ form|crispy }}
+<div class="container my-3">
+    <div class="row">
+        <div class="col-8 mx-auto">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
 
-    <button type="submit">Salvar Alterações</button>
-</form>
+                <button type="submit" class="btn btn-success">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -9,6 +9,7 @@ urlpatterns = [
     path('alunos/inativos/', alunos_inativos, name='alunos_inativos'),
     path('cadastrar_aluno/', cadastrar_aluno, name='cadastrar_aluno'),
     path('editar_aluno/<int:id>/', editar_aluno, name='editar_aluno'),
+
     path('excluir_aluno/<int:id>/', excluir_aluno, name='excluir_aluno'),
     path('alunos/ativar/<int:id>/', ativar_aluno, name='ativar_aluno'),
     path('alunos/ordenar/<parametro>/', ordenar_alunos, name='ordenar_alunos'),
