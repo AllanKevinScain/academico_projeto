@@ -12,7 +12,7 @@ def cadastrar_disciplina(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Disciplina cadastrada com sucesso!')
-            return redirect('disciplinas:cadastrar')
+            return redirect('disciplinas:lista')
     else:
         form = DisciplinaForm()
         dados = {

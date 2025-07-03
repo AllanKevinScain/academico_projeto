@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="bg-primary text-white rounded shadow py-2 text-center">Selecionar Aluno para Matrícula</h2>
+<div class="container my-4" style="max-width: 700px;">
+    <h2 class="mb-4">Selecionar Aluno para Matrícula</h2>
 
     {% include 'partials/_busca.html' %}
 
-    <div class="row">
+    <div class="row g-3">
         {% for aluno in alunos %}
-        <div class="col-md-4">
-            <div class="card mb-3 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">{{ aluno.nome }}</h5>
-                    <p class="card-text">Curso: {{ aluno.curso.nome }}</p>
-                    <a href="{% url 'matricular_aluno' aluno.id %}" class="btn btn-primary btn-sm">Selecionar</a>
+        <div class="col-12">
+            <div class="card shadow-sm border rounded p-3 d-flex flex-row justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-1">{{ aluno.nome }}</h5>
+                    <p class="mb-0 text-muted">Curso: {{ aluno.curso.nome }}</p>
                 </div>
+                <a href="{% url 'disciplinas:matricular' aluno.id %}" class="btn btn-primary">
+                    Selecionar
+                </a>
             </div>
         </div>
         {% empty %}
-        <p>Nenhum aluno encontrado.</p>
+        <p class="text-center text-muted py-4">Nenhum aluno encontrado.</p>
         {% endfor %}
     </div>
 </div>
