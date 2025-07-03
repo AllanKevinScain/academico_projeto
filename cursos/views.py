@@ -18,21 +18,11 @@ def cadastrar_curso(request):
     if request.method == 'POST':
         form = CursoForm(request.POST)
         if form.is_valid():
-
-            # is_valid() Vai validar os dados, o Tokken CSRF, e criar um
-            # dicionário com os dados chamado cleaned_data
-            # Aqui estamos pegando o nome do curso
-            curso = form.cleaned_data['nome']
-            print(curso)
-            # Não vamos salvar no banco, queremos apenas testar
-            form.save(commit=False)
-            # Redireciona para a lista de alunos
-            return redirect('alunos:lista')
+            form.save()
+            return redirect('cursos:lista')
     else:
         form = CursoForm()
-        dados = {
-            'form': form,
-        }
+        dados = {'form': form}
     return render(request, 'cursos/cadastrar.html', dados)
 
 

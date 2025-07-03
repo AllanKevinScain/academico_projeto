@@ -1,24 +1,19 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container my-3">
-    <div class="row">
-        <div class="col-8 mx-auto">
-            <h1 class="bg-secondary shadow rounded py-2 text-center text-white">Edição de Curso</h1>
-        </div>
-    </div>
-</div>
+<div class="container my-4" style="max-width: 600px;">
+    <h1 class="mb-4">Edição de Curso</h1>
 
-<div class="container my-3">
-    <div class="row">
-        <div class="col-8 mx-auto">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
+    <form method="post" novalidate class="border rounded p-4 shadow-sm bg-white">
+        {% csrf_token %}
+        {{ form|crispy }}
 
-                <button type="submit" class="btn btn-success">Salvar Alterações</button>
-            </form>
+        <div class="d-grid mt-3">
+            <button type="submit" class="btn btn-primary btn-lg">
+                Salvar Alterações
+            </button>
         </div>
-    </div>
+    </form>
 </div>
 {% endblock %}

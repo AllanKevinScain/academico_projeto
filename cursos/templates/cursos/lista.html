@@ -1,44 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+  .fixed-width-table {
+    min-width: 900px;
+    /* mesma largura mínima da tabela de alunos */
+  }
+</style>
 
-<div class="container my-3">
-  <div class="row">
-    <div class="col-8 mx-auto">
-      <h1 class="text-center bg-secondary text-white py-2 shadow rounded">Lista de Cursos</h1>
-    </div>
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Lista de Cursos</h1>
+  </div>
+
+  <div class="table-responsive shadow-sm rounded" style="overflow-x:auto;">
+    <table class="table table-hover align-middle fixed-width-table">
+      <thead class="table-primary sticky-top">
+        <tr>
+          <th scope="col">
+            <a href="#" class="text-decoration-none text-dark">Nome</a>
+          </th>
+          <th scope="col" style="width: 150px;">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for curso in cursos %}
+        <tr>
+          <td>{{ curso.nome }}</td>
+          <td>
+            <a href="{% url 'cursos:editar' curso.id %}" class="btn btn-sm btn-outline-secondary me-1" title="Editar">
+              ✏️
+            </a>
+            <a href="{% url 'cursos:excluir' curso.id %}" class="btn btn-sm btn-outline-danger" title="Excluir"
+              onclick="return confirm('Confirma a exclusão deste curso?');">
+              🗑️
+            </a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2" class="text-center text-muted py-4">Nenhum curso cadastrado.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
-
-
-<div class="container my-3">
-  <div class="row">
-    <div class="col-8 mx-auto">
-      <table class="table table-hover table-success table-striped shadow rounded">
-        <thead>
-          <tr class="table-dark">
-            <th>Nome</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for curso in cursos %}
-          <tr>
-            <td>{{ curso.nome }}</td>
-            <td>
-              <a href="{% url 'cursos:editar' curso.id %}" class="btn btn-info btn-sm">Editar</a>
-              <a href="{% url 'cursos:excluir' curso.id %}" class="btn btn-danger btn-sm">Excluir</a>
-            </td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="3">Nenhum curso cadastrado.</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
 {% endblock %}

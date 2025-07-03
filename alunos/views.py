@@ -72,7 +72,7 @@ def editar_aluno(request, id):
         'aluno': aluno,
     }
 
-    return render(request, 'aluno/editar.html', dados)
+    return render(request, 'alunos/editar.html', dados)
 
 
 @login_required
@@ -147,4 +147,4 @@ def detalhes_aluno(request, aluno_id):
         'aluno': aluno,
     }
 
-    return render(request, 'aluno/detalhes.html', dados)
+    return render(request, 'alunos/detalhes.html', dados)
