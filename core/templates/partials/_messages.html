@@ -1,22 +1,19 @@
-{% if messages %}
-<div class="container my-3">
-    <div class="row">
-        <div class="col-8 mx-auto">
-            {% for message in messages %}
-            {% if message.tags == 'error' %}
-            <div class="alert alert-danger alert-dismissible" role="alert">
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1055">
+    {% for message in messages %}
+    <div class="toast align-items-center text-white 
+        {% if message.tags == 'success' %}bg-success
+        {% elif message.tags == 'error' %}bg-danger
+        {% elif message.tags == 'warning' %}bg-warning
+        {% else %}bg-secondary
+        {% endif %}
+        border-0 show mb-2" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
                 {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            {%endif%}
-            {% if message.tags == 'success' %}
-            <div class="alert alert-success alert-dismissible" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {%endif%}
-            {% endfor %}
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
         </div>
     </div>
+    {% endfor %}
 </div>
-{% endif %}
