@@ -1,24 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Index de Acadêmico</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1601933471629-c93de5ad3d6f?auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .glass-card {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.75);
+            /* mais opaco */
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            color: #212529;
+            /* texto escuro */
+        }
+
+        a.btn-custom {
+            text-align: left;
+            color: #212529;
+            border-color: #212529;
+        }
+
+        a.btn-custom:hover {
+            background-color: rgba(33, 37, 41, 0.1);
+            transition: background-color 0.3s ease;
+            color: #000;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Index de Acadêmico</h1>
+    <div class="container h-100 d-flex justify-content-center align-items-center">
+        <div class="glass-card text-center" style="max-width: 500px; width: 100%;">
+            <h1 class="mb-4">🎓 Sistema Acadêmico</h1>
+            <p class="mb-4">Escolha uma opção abaixo para começar:</p>
 
-    <ul>
-        <p>Escolha uma opção:</p>
-        <li><a href=" {% url 'alunos:cadastrar' %}">Cadastro de Aluno</a></li>
-        <li><a href=" {% url 'cursos:cadastrar' %}">Cadastro de Curso</a></li>
-        <li><a href=" {% url 'alunos:lista' %}">Lista de Alunos</a></li>
-        <li><a href=" {% url 'cursos:lista' %}">Lista de Cursos</a></li>
-        <li><a href=" {% url 'contato:index' %}">Contato</a></li>
-    </ul>
+            <div class="d-grid gap-3">
+                <a href="{% url 'alunos:cadastrar' %}" class="btn btn-outline-dark btn-custom">📋 Cadastro de Aluno</a>
+                <a href="{% url 'cursos:cadastrar' %}" class="btn btn-outline-dark btn-custom">📚 Cadastro de Curso</a>
+                <a href="{% url 'alunos:lista' %}" class="btn btn-outline-dark btn-custom">👨‍🎓 Lista de Alunos</a>
+                <a href="{% url 'cursos:lista' %}" class="btn btn-outline-dark btn-custom">📖 Lista de Cursos</a>
+                <a href="{% url 'contato:index' %}" class="btn btn-outline-dark btn-custom">📞 Contato</a>
+            </div>
+        </div>
+    </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
